@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+    <button onclick="testFetch()">Test Fetch</button>
+    <pre id="result"></pre>
+    
+    <script>
+        async function testFetch() {
+            const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSvOrFy7rmP1DKxgTz4I3LrCrfPh-UaCWEIlbhLh7ThGZogOiTskxnmYxNf30x91syWbe3zS6xkkoM4/pub?gid=0&single=true&output=csv';
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                document.getElementById('result').textContent = text.substring(0, 500);
+            } catch (error) {
+                document.getElementById('result').textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
