@@ -1,39 +1,45 @@
 function calculateResults() {
-    // Load answers
     const answers = JSON.parse(localStorage.getItem('spiritualGiftsAnswers') || '{}');
     
-    // Initialize 20 scores
+    // Initialize 20 scores (for 20 categories)
     const scores = new Array(20).fill(0);
-    const scoreDetails = new Array(20).fill(null).map(() => []);
+    const categories = {};
     
-    // Calculate scores based on the formula
-    Object.entries(answers).forEach(([questionId, answerValue]) => {
-        const qNumber = parseInt(questionId.replace('Q', ''));
-        const entryIndex = CONFIG.scoring.calculateGroup(qNumber);
-        
-        const value = parseInt(answerValue) || 0;
-        scores[entryIndex] += value;
-        scoreDetails[entryIndex].push({
-            question: questionId,
-            value: value
-        });
+    // Group questions by category
+    QUESTIONS.forEach(question => {
+        if (!categories[question.category]) {
+            categories[question.category] = [];
+        }
+        categories[question.category].push(question.id);
     });
     
-    // Define gift names (to be customized)
+    // Calculate scores based on categories
+    Object.entries(answers).forEach(([questionId, answerValue]) => {
+        // Find which category this question belongs to
+        const question = QUESTIONS.find(q => q.id === questionId);
+        if (question) {
+            const categoryIndex = question.category - 1; // 0-based index
+            scores[categoryIndex] += parseInt(answerValue) || 0;
+        }
+    });
+    
+    // Define your 20 gift names (customize these!)
     const giftNames = [
-        '恩賜 1', '恩賜 2', '恩賜 3', '恩賜 4', '恩賜 5',
-        '恩賜 6', '恩賜 7', '恩賜 8', '恩賜 9', '恩賜 10',
-        '恩賜 11', '恩賜 12', '恩賜 13', '恩賜 14', '恩賜 15',
-        '恩賜 16', '恩賜 17', '恩賜 18', '恩賜 19', '恩賜 20'
+        '宣言', '服事', '教導真道','鼓勵',
+        '慷慨', '培養同工', '憐憫', '智慧', '知識',
+        '信心','醫治', '行異能','辨別',  '說方言', '翻方言', 
+        '使徒', '助人', '治理領導','傳福音','牧養'
     ];
     
     // Create result objects
     const results = scores.map((score, index) => ({
-        name: giftNames[index],
+        category: index + 1,
+        name: giftNames[index] || `恩賜 ${index + 1}`,
         score: score,
-        maxScore: 40, // 10 questions × 4 points
-        percentage: ((score / 40) * 100).toFixed(1),
-        details: scoreDetails[index]
+        maxScore: categories[index + 1] ? categories[index + 1].length * 4 : 40,
+        percentage: categories[index + 1] ? 
+            ((score / (categories[index + 1].length * 4)) * 100).toFixed(1) : 0,
+        questionCount: categories[index + 1] ? categories[index + 1].length : 10
     }));
     
     // Sort by score descending
@@ -41,6 +47,8 @@ function calculateResults() {
     
     return {
         results: results,
-        totalTime: new Date().toISOString()
+        totalQuestions: QUESTIONS.length,
+        answeredQuestions: Object.keys(answers).length,
+        completedAt: new Date().toISOString()
     };
 }
