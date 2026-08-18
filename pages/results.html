@@ -244,20 +244,56 @@
         </a>
     </div>
 
-    <script src="../js/config.js"></script>
-    <script src="../js/scoring.js"></script>
-    <script>
-        // Load and display results
-        document.addEventListener('DOMContentLoaded', function() {
-            const data = calculateResults();
-            displayResults(data);
-        });
-
-        function displayResults(data) {
-            const results = data.results;
+<script src="../js/config.js"></script>
+<script src="../js/questions.js"></script>
+<script src="../js/scoring.js"></script>
+<script>
+    let currentResults = null;
+    
+    // Load and display results
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log('=== Results Page Initialization ===');
+        
+        try {
+            // First, load questions if not already loaded
+            if (typeof QUESTIONS === 'undefined' || QUESTIONS.length === 0) {
+                console.log('Loading questions for results calculation...');
+                await loadQuestions();
+                console.log('Questions loaded:', QUESTIONS.length);
+            }
             
-            // Display top 3 gifts
-            const topGiftsContainer = document.getElementById('topGifts');
+            // Check if answers exist
+            const savedAnswers = localStorage.getItem('spiritualGiftsAnswers');
+            if (!savedAnswers) {
+                console.error('No answers found in localStorage');
+                showNoAnswersMessage();
+                return;
+            }
+            
+            const answers = JSON.parse(savedAnswers);
+            console.log('Answers found:', Object.keys(answers).length);
+            
+            // Calculate results
+            currentResults = calculateResults();
+            console.log('Results calculated:', currentResults);
+            
+            // Display results
+            displayResults(currentResults);
+            
+            console.log('=== Results Display Complete ===');
+            
+        } catch (error) {
+            console.error('Error loading results:', error);
+            showErrorMessage(error);
+        }
+    });
+
+    function displayResults(data) {
+        const results = data.results;
+        
+        // Display top 3 gifts
+        const topGiftsContainer = document.getElementById('topGifts');
+        if (topGiftsContainer) {
             const top3 = results.slice(0, 3);
             topGiftsContainer.innerHTML = top3.map((gift, index) => `
                 <div class="top-gift-card">
@@ -267,9 +303,11 @@
                     <div class="max-score">/ ${gift.maxScore} 分</div>
                 </div>
             `).join('');
-            
-            // Display full results table
-            const tbody = document.getElementById('resultsTableBody');
+        }
+        
+        // Display full results table
+        const tbody = document.getElementById('resultsTableBody');
+        if (tbody) {
             tbody.innerHTML = results.map((gift, index) => `
                 <tr>
                     <td>#${index + 1}</td>
@@ -284,18 +322,62 @@
                 </tr>
             `).join('');
         }
+    }
 
-        function sendEmail() {
-            const email = document.getElementById('emailInput').value;
-            const messageEl = document.getElementById('emailMessage');
-            
-            if (!email || !email.includes('@')) {
-                messageEl.textContent = '請輸入有效的電子郵件地址';
-                messageEl.style.color = '#d32f2f';
-                return;
-            }
-            
-            // This would use EmailJS or similar service
-            // For now, show a placeholder message
-            messageEl.textContent = '結果已發送到 ' + email;
-            messageEl.style.color
+    function showNoAnswersMessage() {
+        const container = document.querySelector('.container');
+        if (container) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 50px 20px;">
+                    <h2 style="color: #d32f2f; margin-bottom: 20px;">沒有找到問卷答案</h2>
+                    <p style="color: #757575; margin-bottom: 30px;">請先完成問卷再查看結果。</p>
+                    <a href="quiz.html?page=1" 
+                       style="display: inline-block; padding: 15px 40px; background: #1976d2; color: white; 
+                              text-decoration: none; border-radius: 25px; font-weight: bold;">
+                        開始問卷
+                    </a>
+                </div>
+            `;
+        }
+    }
+
+    function showErrorMessage(error) {
+        const container = document.querySelector('.container');
+        if (container) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 50px 20px;">
+                    <h2 style="color: #d32f2f; margin-bottom: 20px;">計算結果時發生錯誤</h2>
+                    <p style="color: #757575; margin-bottom: 10px;">錯誤信息：${error.message}</p>
+                    <button onclick="location.reload()" 
+                            style="padding: 15px 40px; background: #1976d2; color: white; 
+                                   border: none; border-radius: 25px; font-weight: bold; cursor: pointer;">
+                        重試
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    function sendEmail() {
+        const email = document.getElementById('emailInput').value;
+        const messageEl = document.getElementById('emailMessage');
+        
+        if (!email || !email.includes('@')) {
+            messageEl.textContent = '請輸入有效的電子郵件地址';
+            messageEl.style.color = '#d32f2f';
+            return;
+        }
+        
+        // This would use EmailJS or similar service
+        // For now, show a placeholder message
+        messageEl.textContent = '結果已發送到 ' + email;
+        messageEl.style.color = '#2e7d32';
+    }
+
+    function resetQuiz() {
+        if (confirm('確定要重新填寫問卷嗎？目前的答案將被清除。')) {
+            localStorage.removeItem('spiritualGiftsAnswers');
+            window.location.href = 'quiz.html?page=1';
+        }
+    }
+</script>
