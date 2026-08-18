@@ -53,27 +53,52 @@ function calculateResults() {
     console.log('Question counts:', questionCounts);
     
     // Define the 20 spiritual gifts (in order 1-20)
-    const giftNames = [
-        '宣言 (Proclamation)',           // 1
-        '服事 (Servanthood)',            // 2
-        '教導真道 (Teaching the Faith)', // 3
-        '鼓勵 (Encouragement)',          // 4
-        '慷慨 (Generosity)',             // 5
-        '培養同工 (Nurturing Leadership)', // 6
-        '憐憫 (Mercy)',                  // 7
-        '智慧 (Wisdom)',                 // 8
-        '知識 (Knowing)',                // 9
-        '信心 (Faith)',                  // 10
-        '醫病 (Healing)',                // 11
-        '行異能 (Miracles)',             // 12
-        '辨別 (Discernment)',            // 13
-        '說方言 (Tongues)',              // 14
-        '翻方言 (Interpretation of Tongues)', // 15
-        '使徒 (Apostleship)',            // 16
-        '助人 (Helping)',                // 17
-        '治理領導 (Visionary and Managing Leadership)', // 18
-        '傳福音 (Evangelism)',           // 19
-        '牧養 (Shepherding)'             // 20
+// Define Chinese names only
+const giftNamesChinese = [
+    '宣言',                    // 1
+    '服事',                    // 2
+    '教導真道',                // 3
+    '鼓勵',                    // 4
+    '慷慨',                    // 5
+    '培養同工',                // 6
+    '憐憫',                    // 7
+    '智慧',                    // 8
+    '知識',                    // 9
+    '信心',                    // 10
+    '醫病',                    // 11
+    '行異能',                  // 12
+    '辨別',                    // 13
+    '說方言',                  // 14
+    '翻方言',                  // 15
+    '使徒',                    // 16
+    '助人',                    // 17
+    '治理領導',                // 18
+    '傳福音',                  // 19
+    '牧養'                     // 20
+];
+
+    // Define English names only
+    const giftNamesEnglish = [
+        'Proclamation',                    // 1
+        'Servanthood',                     // 2
+        'Teaching the Faith',              // 3
+        'Encouragement',                   // 4
+        'Generosity',                      // 5
+        'Nurturing Leadership',            // 6
+        'Mercy',                           // 7
+        'Wisdom',                          // 8
+        'Knowing',                         // 9
+        'Faith',                           // 10
+        'Healing',                         // 11
+        'Miracles',                        // 12
+        'Discernment',                     // 13
+        'Tongues',                         // 14
+        'Interpretation of Tongues',       // 15
+        'Apostleship',                     // 16
+        'Helping',                         // 17
+        'Visionary and Managing Leadership', // 18
+        'Evangelism',                      // 19
+        'Shepherding'                      // 20
     ];
     
     // Create result objects
@@ -83,7 +108,9 @@ function calculateResults() {
         
         return {
             category: index + 1,
-            name: giftNames[index] || `恩賜 ${index + 1}`,
+            nameChinese: giftNamesChinese[index] || `恩賜 ${index + 1}`,
+            nameEnglish: giftNamesEnglish[index] || `Gift ${index + 1}`,
+            name: `${giftNamesChinese[index]} (${giftNamesEnglish[index]})`, // Full name for table
             score: score,
             maxScore: maxScore,
             percentage: percentage,
