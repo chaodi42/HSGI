@@ -292,14 +292,14 @@ function displayResults(data) {
     
     console.log('Displaying results:', results);
     
-    // Display top 3 gifts
+    // Display top 3 gifts - ONLY Chinese
     const topGiftsContainer = document.getElementById('topGifts');
     if (topGiftsContainer) {
         const top3 = results.slice(0, 3);
         topGiftsContainer.innerHTML = top3.map((gift, index) => `
             <div class="top-gift-card">
                 <div class="rank">TOP ${index + 1}</div>
-                <div class="gift-name">${gift.name}</div>
+                <div class="gift-name">${gift.nameChinese}</div>
                 <div class="score">${gift.score}</div>
                 <div class="max-score">/ ${gift.maxScore} 分</div>
             </div>
