@@ -15,8 +15,7 @@ function calculateResults() {
     const answers = JSON.parse(savedAnswers);
     console.log('Answers loaded:', Object.keys(answers).length);
     
-    // If QUESTIONS is loaded, use categories from questions
-    // Otherwise, calculate based on question number pattern
+    // Initialize 20 scores (for 20 spiritual gifts)
     const scores = new Array(20).fill(0);
     const questionCounts = new Array(20).fill(0);
     
@@ -51,24 +50,43 @@ function calculateResults() {
     }
     
     console.log('Scores calculated:', scores);
+    console.log('Question counts:', questionCounts);
     
-    // Define gift names (customize these!)
+    // Define the 20 spiritual gifts (in order 1-20)
     const giftNames = [
-        '教導', '服事', '領導', '憐憫', '勸勉',
-        '給予', '行政', '傳福音', '牧養', '信心',
-        '分辨', '智慧', '知識', '醫治', '行異能',
-        '先知', '說方言', '翻方言', '幫助', '款待'
+        '宣言 (Proclamation)',           // 1
+        '服事 (Servanthood)',            // 2
+        '教導真道 (Teaching the Faith)', // 3
+        '鼓勵 (Encouragement)',          // 4
+        '慷慨 (Generosity)',             // 5
+        '培養同工 (Nurturing Leadership)', // 6
+        '憐憫 (Mercy)',                  // 7
+        '智慧 (Wisdom)',                 // 8
+        '知識 (Knowing)',                // 9
+        '信心 (Faith)',                  // 10
+        '醫病 (Healing)',                // 11
+        '行異能 (Miracles)',             // 12
+        '辨別 (Discernment)',            // 13
+        '說方言 (Tongues)',              // 14
+        '翻方言 (Interpretation of Tongues)', // 15
+        '使徒 (Apostleship)',            // 16
+        '助人 (Helping)',                // 17
+        '治理領導 (Visionary and Managing Leadership)', // 18
+        '傳福音 (Evangelism)',           // 19
+        '牧養 (Shepherding)'             // 20
     ];
     
     // Create result objects
     const results = scores.map((score, index) => {
         const maxScore = (questionCounts[index] || 10) * 4;
+        const percentage = maxScore > 0 ? ((score / maxScore) * 100).toFixed(1) : 0;
+        
         return {
             category: index + 1,
             name: giftNames[index] || `恩賜 ${index + 1}`,
             score: score,
             maxScore: maxScore,
-            percentage: maxScore > 0 ? ((score / maxScore) * 100).toFixed(1) : 0,
+            percentage: percentage,
             questionCount: questionCounts[index] || 10
         };
     });
