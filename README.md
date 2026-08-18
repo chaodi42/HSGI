@@ -92,20 +92,20 @@
 - No backend server required
 
 ## Project Structure
-  HSGI/
-  ├── index.html # Homepage (questionnaire instructions)
-  ├── pages/
-  │ ├── quiz.html # Quiz page
-  │ ├── results.html # Results page
-  │ └── test.html # Test page (for development)
-  ├── js/
-  │ ├── config.js # Configuration file
-  │ ├── questions.js # Question loading logic
-  │ ├── quiz.js # Quiz logic
-  │ └── scoring.js # Scoring logic
-  ├── css/ # Style files (if needed)
-  ├── assets/ # Static assets (if needed)
-  └── README.md # Project documentation
+-  HSGI/
+-  ├── index.html # Homepage (questionnaire instructions)
+-  ├── pages/
+-  │ ├── quiz.html # Quiz page
+-  │ ├── results.html # Results page
+-  │ └── test.html # Test page (for development)
+-  ├── js/
+-  │ ├── config.js # Configuration file
+-  │ ├── questions.js # Question loading logic
+-  │ ├── quiz.js # Quiz logic
+-  │ └── scoring.js # Scoring logic
+-  ├── css/ # Style files (if needed)
+-  ├── assets/ # Static assets (if needed)
+-  └── README.md # Project documentation
 
 ## Developer Information
 
