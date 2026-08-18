@@ -392,9 +392,42 @@ function displayResults(data) {
             return;
         }
         
-        // This would use EmailJS or similar service
-        // For now, show a placeholder message
-        messageEl.textContent = '結果已發送到 ' + email;
+        if (!currentResults || !currentResults.results) {
+            messageEl.textContent = '結果數據不完整';
+            messageEl.style.color = '#d32f2f';
+            return;
+        }
+        
+        // Prepare email content in plain text
+        const topGifts = currentResults.results.slice(0, 5);
+        let emailBody = '屬靈恩賜調查結果\n';
+        emailBody += '='.repeat(30) + '\n\n';
+        
+        emailBody += '前五大恩賜：\n';
+        topGifts.forEach((gift, index) => {
+            emailBody += `${index + 1}. ${gift.name}: ${gift.score}/${gift.maxScore}\n`;
+        });
+        
+        emailBody += '\n完整結果：\n';
+        currentResults.results.forEach((gift, index) => {
+            emailBody += `${index + 1}. ${gift.name}: ${gift.score}/${gift.maxScore}\n`;
+        });
+        
+        emailBody += '\n' + '='.repeat(30) + '\n';
+        emailBody += `完成時間：${new Date().toLocaleString('zh-TW')}\n`;
+        emailBody += '波士頓郊區華人聖經教會\n';
+        emailBody += '課程：CC105 - 屬靈恩賜與服事';
+        
+        // Create mailto link with encoded content
+        const subject = encodeURIComponent('屬靈恩賜調查結果');
+        const body = encodeURIComponent(emailBody);
+        const mailtoLink = `mailto:${email}?subject=${subject}&body=${body}`;
+        
+        // Open user's email client
+        window.location.href = mailtoLink;
+        
+        // Show success message
+        messageEl.textContent = '✓ 已打開您的郵件客戶端，請確認並發送郵件';
         messageEl.style.color = '#2e7d32';
     }
 
