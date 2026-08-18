@@ -13,16 +13,6 @@
 - **用途：** 主日學課程教學使用
 - **版權：** © 2026 CBCGB 主日學課程。僅供非商業用途。
 
-## 功能特點
-
-- ✅ 200 道屬靈恩賜調查題目
-- ✅ 分為 10 頁，每頁 20 題
-- ✅ 自動儲存答案（localStorage）
-- ✅ 即時計算 20 種屬靈恩賜分數
-- ✅ 視覺化結果展示
-- ✅ 郵件發送結果功能
-- ✅ 無需後端伺服器
-- ✅ 使用 Google Sheets 作為資料來源
 
 ## 20 種屬靈恩賜
 
@@ -48,6 +38,17 @@
 | 18 | 治理領導 | Visionary and Managing Leadership |
 | 19 | 傳福音 | Evangelism |
 | 20 | 牧養 | Shepherding |
+
+## Features
+
+- ✅ 200 spiritual gifts assessment questions
+- ✅ Divided into 10 pages, 20 questions per page
+- ✅ Auto-save answers (localStorage)
+- ✅ Real-time calculation of 20 spiritual gift scores
+- ✅ Visual results display
+- ✅ Email results functionality
+- ✅ No backend server required
+- ✅ Uses Google Sheets as data source
 
 ## How to Use
 
@@ -91,20 +92,20 @@
 - No backend server required
 
 ## Project Structure
-HSGI/
-├── index.html # Homepage (questionnaire instructions)
-├── pages/
-│ ├── quiz.html # Quiz page
-│ ├── results.html # Results page
-│ └── test.html # Test page (for development)
-├── js/
-│ ├── config.js # Configuration file
-│ ├── questions.js # Question loading logic
-│ ├── quiz.js # Quiz logic
-│ └── scoring.js # Scoring logic
-├── css/ # Style files (if needed)
-├── assets/ # Static assets (if needed)
-└── README.md # Project documentation
+  HSGI/
+  ├── index.html # Homepage (questionnaire instructions)
+  ├── pages/
+  │ ├── quiz.html # Quiz page
+  │ ├── results.html # Results page
+  │ └── test.html # Test page (for development)
+  ├── js/
+  │ ├── config.js # Configuration file
+  │ ├── questions.js # Question loading logic
+  │ ├── quiz.js # Quiz logic
+  │ └── scoring.js # Scoring logic
+  ├── css/ # Style files (if needed)
+  ├── assets/ # Static assets (if needed)
+  └── README.md # Project documentation
 
 ## Developer Information
 
@@ -145,24 +146,26 @@ If you find any issues or have improvement suggestions:
 
 
 ## Changelog
-v1.0.0 (2026)
-✅ Initial release
-✅ 200 questions
-✅ 20 spiritual gifts
-✅ Results calculation
-✅ Email sending
-✅ Responsive design
 
-License
+v1.0.0 (2026)
+- ✅ Initial release
+- ✅ 200 questions
+- ✅ 20 spiritual gifts
+- ✅ Results calculation
+- ✅ Email sending
+- ✅ Responsive design
+
+## License
+
 This project is for use by the Boston Chinese Bible Study Group (CBCGB) Sunday School class only.
-❌ Commercial use prohibited
-✅ Church internal use allowed
-✅ Non-commercial study and research allowed
-© 2026 波士頓郊區華人聖經教會 (CBCGB). All rights reserved.
+- ❌ Commercial use prohibited
+- ✅ Church internal use allowed
+- ✅ Non-commercial study and research allowed
+- © 2026 波士頓郊區華人聖經教會 (CBCGB). All rights reserved.
 
 ## Acknowledgments
-郝甘能屬靈恩賜調查（HSGI） - Questionnaire design foundation
-波士頓郊區華人聖經教會 (CBCGB) - Course support and guidance
-All testers - Providing valuable user feedback
+- 郝甘能屬靈恩賜調查（HSGI） - Questionnaire design foundation
+- 波士頓郊區華人聖經教會 (CBCGB) - Course support and guidance
+- All testers - Providing valuable user feedback
 
-May God bless your ministry! 🙏
+- May God bless your ministry! 🙏
